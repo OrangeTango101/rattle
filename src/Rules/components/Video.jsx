@@ -35,13 +35,13 @@ export default function Video(props) {
     const name = isPlaying ? "video-played" : "video-paused" 
 
     return (
-    <div 
-        className="rules-section-vid" 
-        onMouseEnter={handleMouseEnter} 
-        onMouseLeave={handleMouseLeave} 
-        onClick={handleClick}
-    >
-        <div className="rules-section-vid-frame">
+    <div className="rules-section-vid">
+        <div 
+            className="rules-section-vid-frame"
+            onMouseEnter={handleMouseEnter} 
+            onMouseLeave={handleMouseLeave} 
+            onClick={handleClick}
+        >
             <video 
                 className={name} 
                 src={props.src} 
@@ -51,7 +51,13 @@ export default function Video(props) {
                 muted 
             />
         </div>
-        {!isPlaying && <button className="rules-section-vid-play">{"▶"}</button>}
+       
+            {!isPlaying && (
+                 <div className="rules-section-vid-play">
+                    <button >{"▶"}</button>
+                </div>
+            )}
+        
     </div>
 
     )
