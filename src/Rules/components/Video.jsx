@@ -1,0 +1,60 @@
+
+import { useRef, useState} from 'react'
+
+export default function Video(props) {
+    const videoRef = useRef(null); 
+    const [isHovered, setIsHovered] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(false);
+
+    function handleMouseEnter() {
+        if (videoRef.current) {
+            videoRef.current.play()
+            setIsPlaying(true)
+            setIsHovered(true)
+        }
+    }
+
+    function handleMouseLeave() {
+        if (videoRef.current) {
+            videoRef.current.pause()
+            setIsPlaying(false)
+            setIsHovered(false)
+        }
+    }
+
+    function handleClick() {
+        if (videoRef.current) {
+            videoRef.current.pause()
+            setIsPlaying(false)
+            setIsHovered(false)
+
+            props.setActiveVideo({src: props.src, time: videoRef.current.currentTime})
+        }
+    }
+
+    const name = isPlaying ? "video-played" : "video-paused" 
+
+    return (
+    <div 
+        className="rules-section-vid" 
+        onMouseEnter={handleMouseEnter} 
+        onMouseLeave={handleMouseLeave} 
+        onClick={handleClick}
+    >
+        <div className="rules-section-vid-frame">
+            <video 
+                className={name} 
+                src={props.src} 
+                ref={videoRef} 
+                controls={false} 
+                loop 
+                muted 
+            />
+        </div>
+        {!isPlaying && <button className="rules-section-vid-play">{"▶"}</button>}
+    </div>
+
+    )
+
+
+}
