@@ -1,4 +1,5 @@
 import Main from "./components/Main"
+import "./rules.css"
 
 
 export default function Rules(props) {
@@ -6,7 +7,7 @@ export default function Rules(props) {
 
     return (
         <div className={name}>
-            <Main />
+            <Main setOpenPage={props.setOpenPage}/>
         </div>
     )
 }

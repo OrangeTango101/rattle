@@ -1,7 +1,6 @@
 import { useState } from "react"
 import Game from "./Game/Game"
 import Rules from "./Rules/Rules"
-import Nav from "./components/Nav"
 
 
 export default function App() {
@@ -25,9 +24,8 @@ export default function App() {
 
   return (
     <>
-      <Nav links={getNavLinks()} setOpenPage={setOpenPage}/>
-      <Game openPage={openPage}/>
-      <Rules openPage={openPage}/>
+      <Game openPage={openPage} setOpenPage={setOpenPage}/>
+      <Rules openPage={openPage} setOpenPage={setOpenPage}/>
     </>
   )
 }

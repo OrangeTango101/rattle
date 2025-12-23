@@ -1,0 +1,123 @@
+.game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 50px;
+}
+
+nav {
+    margin: 0;
+    width: 100%;
+    background-color: white;
+    margin-bottom: 10px;
+}
+
+.nav-frame {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr; 
+    align-items: flex-end;
+    justify-items: center;
+    width: 100%;
+    padding: 30px 0px;
+    box-shadow: 0 1px 30px 0 rgba(0, 0, 0, 0.1)
+}
+
+.nav-frame > p {
+    color: #1a1a1a;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+    cursor: pointer;
+}
+
+.nav-frame > p:hover {
+    color: #4a90e2;
+}
+
+
+.nav-frame > img {
+    width: 280px;
+    max-width: 100%;
+}
+
+.game-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    height: 550px; 
+    gap: 70px;
+    padding: 20px 120px;
+}
+
+.game-content-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 40%;
+    height: fit-content;
+}
+
+.game-content-info-section {
+    background-color: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    padding: 20px 30px 20px 30px;
+    height: 100%;
+}
+
+.game-content-info-section-title {
+    color: #1a1a1a;
+    margin-bottom: 15px;
+}
+
+.game-content-info-section-desc {
+    margin-bottom: 10px;
+}
+
+.game-content-info-section-title > h1 {
+    margin: 0px 0px -5px 0px;
+}
+
+.game-content-info-section-title  > span, .game-content-info-section > span {
+    color: #666;
+    font-size: 16px;
+    margin: 0;
+}
+
+.game-content-info-section > span {
+    cursor: pointer;
+}
+
+.game-content-info-section-desc > p {
+    font-size: 15.5px;
+    line-height: 1.8;
+    margin: 0px;
+    color: #333;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.game-render {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+    height: 100%;
+    width: 60%;
+    padding: 20px 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.game-render > iframe {
+    border: none;
+    outline: none;
+    height: 100%;
+    width: 100%;
+
+    -webkit-tap-highlight-color: transparent;
+}

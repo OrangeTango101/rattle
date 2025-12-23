@@ -11,7 +11,7 @@ export default function Section(props) {
             <div className="rules-section-info">
                 <div className="rules-section-title">
                     <h1>{data.title}</h1>
-                    {data.sub ? <span>control: {data.sub}</span> : null}
+                    {data.sub ? <span>{data.sub}</span> : null}
                 </div>
                 <div className="rules-section-desc">
                     <p>{data.desc}</p>
