@@ -4,30 +4,30 @@
     border-radius: 16px;
     width: 90%;
     max-width: 1000px;
-    background-color: white;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    background-color: #fffbf0;
+    box-shadow: 5px 10px 30px rgba(184, 134, 11, 0.2);
     position: relative;
+    border-left: 4px solid #d4a500;
 }
 
 .rules-exit {
     position: absolute;
     left: 20px;
     top: 20px;
-    font-size: 15px;
+    font-size: 20px;    
     width: 30px;
     height: 25px;
-    color: grey;
-    background-color: white;
-    border: 1px solid #e0e0e0;
+    color: #5a4a1a;
+    background: none;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease
 }
 
 .rules-exit:hover {
-    color: #4a90e2;
+    color: #d4a500;
     cursor: pointer;
-    background-color: #e4effc;
 }
 
 .rules-section {
@@ -54,15 +54,15 @@
     height: 320px;
     background-color: white;
     overflow: hidden;
-    border: 1px solid #e0e0e0;
     border-radius: 12px;
     cursor: pointer;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border: 1px solid #5a4a1a;;
+    box-shadow: 0 4px 16px rgba(184, 134, 11, 0.08);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .rules-section-vid-frame:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 24px (184, 134, 11, 0.12);
     transform: translateY(-4px);
 }
 
@@ -160,20 +160,20 @@ video.video-played {
     height: 55%;
     font-size: 32px;
     font-weight: 700;
-    color: #1a1a1a;
+    color: #5a4a1a;
 }
 
 .rules-section-title > span {
-    color: #666;
+    color: #8b7500;
     font-size: 16px;
     margin: 0;
 }
 
-.rules-section-desc > p, .rules-section-desc > li {
+.rules-section-desc > p, .rules-section-desc > ol > li {
     font-size: 16px;
     line-height: 1.8;
     margin: 0 0 10px 0;
-    color: #333;
+    color: #4a4a2a;
 }
 
 .rules-section-desc > ol {

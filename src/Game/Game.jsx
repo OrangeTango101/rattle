@@ -22,7 +22,7 @@ export default function Game(props) {
                         />
                         <Section 
                             title="Game Controls" 
-                            sub="To roll, place, and move die"
+                            sub="Roll, place, and move die"
                             desc={<p>Left Mouse Click: Place or Roll Die<br />Right Mouse Click: Pick Up or Move Die<br />Left Arrow Key: Reverse Last Action</p>}
                             link="read more"
                             setOpenPage={props.setOpenPage}
