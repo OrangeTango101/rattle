@@ -32,7 +32,7 @@ export default function Render() {
             }
 
             <iframe className={name} onLoad={() => handleLoad()}
-                    src="/rattle_game/index.html"
+                    src="rattle_game/index.html"
                     title="Pygame Game"
             />
 
