@@ -44,7 +44,7 @@ export default function Video(props) {
         >
             <video 
                 className={name} 
-                src=""//{props.src}
+                src={props.src}
                 type="video/mp4"
                 ref={videoRef} 
                 controls={false} 
