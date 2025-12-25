@@ -7,15 +7,16 @@ export default function Section(props) {
 
     return (
         <div className="game-content-info-section">
-            <div className="game-content-info-section-title">
+            <div className="game-content-info-section-title info-title">
                 <h1>{props.title}</h1>
                 <span>{props.sub}</span>
             </div>
-            <div className="game-content-info-section-desc">
+            <div className="game-content-info-section-desc info-desc">
                 {props.desc}
             </div>
-
-            <span onClick={handleClick}>{props.link}</span>
+            <div className="info-footer">
+                <span onClick={handleClick}>{props.link}</span>
+            </div>
         </div>
     )
 }

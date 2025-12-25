@@ -16,13 +16,13 @@ export default function Nav(props) {
     return (
         <nav>
             <div className="nav-frame">
-                <p onClick={() => updatePage("rules")}>Rules</p>
-                <p>Contact</p>
+                <a onClick={() => updatePage("rules")}>Rules</a>
+                <a onClick={() => updatePage("contact")}>Contact</a>
                 <img className="nav-title" src={rattle_title} />
-                <p>Play Online (unavailable)</p>
-                <p onClick={() => updatePage("contact")}>GitHub</p>
+                <a>Play Online</a>
+                <a href="https://github.com/OrangeTango101/Board_Game" target="_blank">GitHub</a>
             </div>
-        </nav>
+        </nav>  
     )
 
     

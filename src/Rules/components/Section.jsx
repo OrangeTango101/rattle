@@ -9,11 +9,11 @@ export default function Section(props) {
     return (
         <div className="rules-section">
             <div className="rules-section-info">
-                <div className="rules-section-title">
+                <div className="rules-section-title info-title">
                     <h1>{data.title}</h1>
                     {data.sub ? <span>{data.sub}</span> : null}
                 </div>
-                <div className="rules-section-desc">
+                <div className="rules-section-desc info-desc">
                     <p>{data.desc}</p>
                     {lsPoints.length > 0 ? <ol>{lsPoints}</ol> : null}
                 </div>

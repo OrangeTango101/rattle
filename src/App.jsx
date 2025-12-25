@@ -1,6 +1,7 @@
 import { useState } from "react"
 import Game from "./Game/Game"
 import Rules from "./Rules/Rules"
+import Contact from "./Contact/Contact"
 
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
     <>
       <Game openPage={openPage} setOpenPage={setOpenPage}/>
       <Rules openPage={openPage} setOpenPage={setOpenPage}/>
+      <Contact openPage={openPage} setOpenPage={setOpenPage}/>
     </>
   )
 }

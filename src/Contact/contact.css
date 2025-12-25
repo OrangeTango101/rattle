@@ -1,0 +1,86 @@
+.contact {
+    display: flex;
+    align-items: flex-start;
+    justify-items: flex-start;
+    margin: 30px 0px 0px 30px;
+    width: 90%;
+    height: 100%;
+}
+
+.about > h1 {
+    font-size: clamp(40px, 3vw, 60px);
+    margin: 0;
+    font-weight: 700;
+    color: var(--title);
+}
+
+.about-brief {
+    margin: 0px;
+    font-size: 1.125rem;
+    color: var(--muted);
+}
+
+.about-desc {
+    font-size: 1.125rem;
+    color: var(--text);
+    
+}
+
+.about-desc > a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.profile-photo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 50px;
+}
+
+.intro-img-frame {
+    width: 170px;
+    height: 170px;
+    margin-bottom: 0px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.intro-img-frame > img {
+    width: 180px;
+    transform: translate(0px, -50px);
+}
+
+.profile-photo-loc {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 5px 0px 10px 0px;
+}
+
+.profile-photo-loc > img {
+    width: 15px;
+    filter: invert(50%);
+}
+
+.profile-photo-links {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px
+}
+
+.profile-photo-links > a > img {
+    width: 40px;
+}
+
+@media (max-width: 1024px) {
+    .contact {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        gap: 20px;
+    }
+}

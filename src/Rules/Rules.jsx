@@ -3,7 +3,7 @@ import "./rules.css"
 
 
 export default function Rules(props) {
-    const name = props.openPage.rules ? "rules" : "rules hidden"
+    const name = props.openPage.rules ? "rules info-page" : "rules info-page hidden"
 
     return (
         <div className={name}>

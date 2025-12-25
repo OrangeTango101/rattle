@@ -9,6 +9,94 @@ body {
     line-height: 1.6;
 }
 
+:root {
+    --surface: #fffbf0;
+    --card: white;
+    --text: #4a4a2a;
+    --title: #5a4a1a;
+    --sub: #8b7500;
+    --accent: #d4a500;
+    --radius: 16px;
+    --shadow: 0 4px 20px rgba(184, 134, 11, 0.1);
+    --dark-shadow: 0 8px 24px rgba(184, 134, 11, 0.12);
+    --text-size: 16px;
+    --title-size: 32px;
+}
+
+.info-page {
+    margin: 60px auto;
+    padding: 60px 40px 100px 60px;
+    border-radius: var(--radius);
+    width: 90%;
+    max-width: 1000px;
+    min-height: 500px;
+    background-color: var(--card);
+    box-shadow: 5px 10px 30px rgba(184, 134, 11, 0.2);
+    position: relative;
+    border-left: 4px solid var(--accent);
+    animation: slideIn 0.4s ease-out;
+}
+
+.info-page-exit {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    font-size: 20px;        
+    width: 30px;
+    height: 25px;
+    color: var(--title);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease
+}
+
+.info-page-exit:hover {
+    color: var(--accent);
+}
+
+.info-title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0px;
+    margin-bottom: 10px;
+}
+
+.info-title > h1 {
+    margin: 0px 0px -6px 0px;
+    font-size: var(--title-size);
+    font-weight: 700;
+    color: var(--title)
+
+}
+.info-title > span {
+    color: var(--sub);
+    font-size: var(--text-size);
+    margin: 0px;
+}
+
+.info-desc > p, .info-desc > ol > li {
+    font-size: var(--text-size);
+    line-height: 1.8;
+    color: var(--text);
+    margin: 0 0 10px 0;
+}
+
+.info-desc > ol {
+    margin: 0px 20px 10px 10px;
+    padding: 0;
+}
+
+.info-desc > ol > li {
+    margin: 0px 0px 0px 20px;
+}
+
+.info-footer {
+    color: var(--sub);
+    cursor: pointer;
+}
+
 .hidden {
     display: none !important;
 }

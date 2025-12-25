@@ -16,7 +16,7 @@ export default function Main(props) {
     return (
         <>
             <div className="rules-content">
-                <button className="rules-exit" onClick={handleClick}>X</button>
+                <button className="info-page-exit" onClick={handleClick}>X</button>
                 {allRules}
             </div>
             {activeVideo && 
