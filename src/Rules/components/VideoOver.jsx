@@ -24,7 +24,7 @@ export default function VideoOver(props) {
             <div className="video-overlay-frame"> 
                 <video 
                     ref={videoRef}
-                    src={props.src} 
+                    src={(import.meta.env.BASE_URL + props.src).replace(/\/+/g, '/')}
                     controls={false} 
                     loop 
                     muted 
