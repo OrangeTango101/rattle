@@ -44,7 +44,7 @@ export default function Video(props) {
         >
             <video 
                 className={name} 
-                src={props.src}
+                src={(import.meta.env.BASE_URL + props.src).replace(/\/+/g, '/')}
                 type="video/mp4"
                 ref={videoRef} 
                 controls={false} 
