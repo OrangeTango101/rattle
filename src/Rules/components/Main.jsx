@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Section from "./Section"
 import VideoOver from "./VideoOver"
-import rules from "/Users/ericjohnson/rattle-site/src/data/rules.js"
+import rules from "../data/rules.js"
 
 export default function Main(props) {
     const [activeVideo, setActiveVideo] = useState(null)
