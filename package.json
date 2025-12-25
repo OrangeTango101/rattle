@@ -1,5 +1,6 @@
 {
   "name": "rattle-site",
+  "homepage": "https://OrangeTango101.github.io/rattle/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,9 +8,11 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    
   },
   "dependencies": {
+    "gh-pages": "^6.3.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.11.0"
