@@ -9,7 +9,7 @@ export default function Contact(props) {
     const name = props.openPage.contact ? "info-page" : "info-page hidden"
 
     function handleClick() {
-        props.setOpenPage({"game": true, "rules": false, "contact": false, "page": "game"})
+        props.setOpenPage({"home": true, "rules": false, "contact": false, "page": "home"})
     }
 
     return (

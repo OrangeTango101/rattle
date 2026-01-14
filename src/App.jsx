@@ -1,11 +1,12 @@
 import { useState } from "react"
-import Game from "./Game/Game"
+import Home from "./Home/Home"
 import Rules from "./Rules/Rules"
 import Contact from "./Contact/Contact"
 
 
 export default function App() {
-  const [openPage, setOpenPage] = useState({"page": "game", "game": true, "rules": false, "contact": false})
+  const [openPage, setOpenPage] = useState({"page": "home", "home": true, "rules": false, "contact": false})
+  const [gameType, setGameType] = useState("local")
 
   function getNavLinks() {
 
@@ -25,7 +26,7 @@ export default function App() {
 
   return (
     <>
-      <Game openPage={openPage} setOpenPage={setOpenPage}/>
+      <Home openPage={openPage} setOpenPage={setOpenPage} gameType={gameType} setGameType={setGameType}/>
       <Rules openPage={openPage} setOpenPage={setOpenPage}/>
       <Contact openPage={openPage} setOpenPage={setOpenPage}/>
     </>

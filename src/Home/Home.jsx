@@ -1,17 +1,16 @@
-import Render from "./components/Render"
 import Nav from "./components/Nav"
 import Section from "./components/Section"
+import RattleGame from "../rattle-frontend/RattleGame.jsx"
 import "./game.css"
 
-export default function Game(props) {
-    const name = props.openPage.game ? "game" : "game hidden"
+export default function Home(props) {
+    const name = props.openPage.home ? "home" : "home hidden"
 
     return (
-        <>
             <div className={name}>
-                <Nav setOpenPage={props.setOpenPage}/>
+                <Nav setOpenPage={props.setOpenPage} gameType={props.gameType} setGameType={props.setGameType}/>
                 <div className="game-content">
-                    <Render />
+                    <RattleGame type={props.gameType}/>
                     <div className="game-content-info">
                         <Section 
                             title="Welcome to Rattle!" 
@@ -30,7 +29,6 @@ export default function Game(props) {
                     </div>
                 </div>
             </div>
-        </>
     )
 
 }

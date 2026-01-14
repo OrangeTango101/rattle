@@ -10,7 +10,7 @@ export default function Main(props) {
     })
 
     function handleClick() {
-        props.setOpenPage({"game": true, "rules": false, "contact": false, "page": "game"})
+        props.setOpenPage({"home": true, "rules": false, "contact": false, "page": "home"})
     }
 
     return (
