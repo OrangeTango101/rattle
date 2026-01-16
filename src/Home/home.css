@@ -54,6 +54,7 @@ nav {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    height: 100%;
     width: 40%;
 }
 
@@ -84,12 +85,9 @@ nav {
     overflow: hidden;
 }
 
-.game-render {
-
-}
-
 .rattle-sketch {
     display: flex;
+    position: relative;
     justify-content: center;
     align-items: center;
     border-radius: var(--radius);
@@ -100,22 +98,57 @@ nav {
     background-color: var(--card);
 }
 
+.rattle-sketch > h2 {
+    position: absolute;
+    font-size: var(--title-size);
+    color: var(--title);
+    margin: 0px;
+    top: 50%;
+    left: 38.5%;
+    transform: translate(-50%, -50%)
+}
+
 .rattle-sketch > canvas {
     object-fit: contain;       
     width: auto !important;
     height: auto !important;
     max-width: 100%;
     max-height: 100%;
+    opacity: 1;
+    filter: blur(0px);
+    transition: opacity 0.5s ease-in-out, filter 0.5s ease-in-out;
 }
 
-.game-render > h2 {
+.overlay > canvas {
+    opacity: 0.5;
+    filter: blur(1px);
+}
+
+.game-overlay {
     position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    top: 50%;
+    left: 38.5%;
+    transform: translate(-50%, -50%)
+}
+
+.game-overlay > h2 {
     font-size: var(--title-size);
     color: var(--title);
     margin: 0px;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%)
+}
+
+.game-overlay > button {
+    font-size: 20px;        
+    color: white;
+    background: var(--accent);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease
 }
 
 .isLoading {

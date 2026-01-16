@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react"
+import GameOverlay from "./GameOverlay"
 import p5 from "p5"
 import rattleSketch from "./RattleSketch"
 import Game from "./Game"
@@ -9,7 +10,10 @@ export default function RattleGame(props) {
 
     const containerRef = useRef(null)
     const p5InstanceRef = useRef(null)
-    const API = "https://rattle-api-13w1.onrender.com"
+    const API = "https://rattle-api-13w1.onrender.com" 
+    const [connected, setConnected] = useState(true)
+    const [gameOver, setGameOver] = useState(false)
+    const [searching, setSearching] = useState(false)
     const gameData = {
         GAME_ID: null,
         USER_ID: null,
@@ -50,12 +54,21 @@ export default function RattleGame(props) {
 
     async function getState() {
         if (!(gameData.GAME_ID && gameData.USER_ID)) return 
-        const res = await fetch(`${API}/get_state/${gameData.GAME_ID}/${gameData.USER_ID}`, {
-            method: "GET",
-            headers: { "Content-Type": "application/json" }
-        })
-        const gameState = await res.json()
-        return gameState
+        try {
+            const res = await fetch(`${API}/get_state/${gameData.GAME_ID}/${gameData.USER_ID}`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
+            })
+            if (!res.ok) {
+                setConnected(false)
+            } else {
+                setConnected(true)
+            }
+            const gameState = await res.json()
+            return gameState
+        } catch (err) {
+            setConnected(false)
+        }
     }
 
     async function makeMove(move) {
@@ -71,7 +84,6 @@ export default function RattleGame(props) {
                     "move": move
                 })
             })  
-
             const gameState = await res.json()
             Game.updateFromServer(gameState)
         } catch (err) {
@@ -82,9 +94,17 @@ export default function RattleGame(props) {
     function startPolling() {
         if (!gameData.pollServer) {
             gameData.pollServer = setInterval(async () => {
-                console.log(`polling, winner: ${Game.winner}`)
                 const gameState = await getState(gameData.GAME_ID, gameData.USER_ID)
-                Game.updateFromServer(gameState)
+                if (gameState) {
+                    Game.updateFromServer(gameState)
+                    if (!(gameState["game"]["winner"] === null)) {
+                        setGameOver(true)
+                    }
+                    if (gameState["full"] == true) {
+                        setSearching(false)
+                    }
+                }
+                
             }, 500)
         }
     }
@@ -97,6 +117,8 @@ export default function RattleGame(props) {
         gameData.FULL = GAME_RESPONSE.full
         gameData.init_state = await getState(gameData.GAME_ID, gameData.USER_ID) 
         console.log(gameData.PLAYERS)
+
+        if (props.type != "local" && !GAME_RESPONSE.full) setSearching(true)
         Game.initGame(API, gameData.GAME_ID, gameData.PLAYERS, gameData.init_state["game"]["game_state"], gameData.FULL)
         User.makeMove = makeMove
         startPolling()
@@ -104,7 +126,9 @@ export default function RattleGame(props) {
     }
 
     useEffect(() => {
-        if (p5InstanceRef.current) return;
+        if (p5InstanceRef.current) return
+        setGameOver(false)
+        setSearching(false)
         initGame()
         p5InstanceRef.current = new p5((s) => rattleSketch(s, containerRef.current, gameData))
 
@@ -118,11 +142,33 @@ export default function RattleGame(props) {
             endGame(gameData.GAME_ID)
         }
 
-    }, [props.type])
+    }, [props.type, props.restartGame])
+
+    const name = connected && !gameOver && !searching ? "rattle-sketch" : "rattle-sketch overlay"
 
     return (
-        <div className="rattle-sketch" ref={containerRef}>
-
+        <div className={name} ref={containerRef}>
+            {!connected && 
+                <GameOverlay
+                    title="Lost Connection..."
+                    buttonText="Restart"
+                    buttonFn={() => props.setRestartGame((prevRestartGame) => !prevRestartGame)}
+                />
+            }
+            {connected && gameOver && 
+                <GameOverlay
+                    title={`${Game.winner == 0 ? "Light" : "Dark"} Wins by ${Game.winType}`}
+                    buttonText="New Game"
+                    buttonFn={() => props.setRestartGame((prevRestartGame) => !prevRestartGame)}
+                />
+            }
+            {connected && searching &&
+                <GameOverlay
+                    title="Looking for Opponent..."
+                    buttonText=""
+                    buttonFn=""
+                />
+            }
         </div>
     )
     

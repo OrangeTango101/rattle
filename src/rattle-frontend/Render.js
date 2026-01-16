@@ -2,7 +2,7 @@ import Game from "./Game"
 import User from "./user"
 
 export default class Render {
-    static display_width = 750
+    static display_width = 750 
     static display_height = 550
     static assets = {} 
 
@@ -52,20 +52,11 @@ export default class Render {
     }
 
     static renderText(s) {
-        let textContent = ""
-
-        if (!Game.full) {
-            textContent = "Looking for Opponent..."
-        } else if (!(Game.winner === null)) {
-            let winner = Game.winner == 0 ? "White" : "Dark"
-            textContent = `${winner} Wins by ${Game.winType}`
-        } else {
-            textContent = Game.myTurn() ? `Your Turn (${Game.myColor()})` : `Opponent's Turn`
-        }
-
+        let textContent = Game.myTurn() ? `Your Turn (${Game.myColor()})` : `Opponent's Turn`
+        
         s.fill(0)
         s.textSize(15)
-        s.text(Game.full ? textContent : "Looking for Opponent...", 560, (Render.display_height+5)/2)
+        s.text(textContent, 560, (Render.display_height+5)/2)
     }
 
     static renderReserve(s) {
