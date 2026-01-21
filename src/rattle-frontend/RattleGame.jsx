@@ -10,10 +10,12 @@ export default function RattleGame(props) {
 
     const containerRef = useRef(null)
     const p5InstanceRef = useRef(null)
-    const API = "https://rattle-api-13w1.onrender.com" 
-    const [connected, setConnected] = useState(true)
-    const [gameOver, setGameOver] = useState(false)
-    const [searching, setSearching] = useState(false)
+    const API = "http://127.0.0.1:8000" //"https://rattle-api-13w1.onrender.com" http://127.0.0.1:8000
+    const [stateData, setStateData] = useState({
+        connected: true,
+        gameOver: false,
+        searching: false
+    })
     const gameData = {
         GAME_ID: null,
         USER_ID: null,
@@ -25,30 +27,49 @@ export default function RattleGame(props) {
     }
 
     async function createGame(type) {
-        const res = await fetch(`${API}/create_game/${type}`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" }
-        })
-        const gameResponse = await res.json()
-        return gameResponse
+        try {
+            const res = await fetch(`${API}/create_game/${type}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" }
+            })
+            const gameResponse = await res.json()
+            if (!res.ok) {
+                setStateData((prevStateData) => ({...prevStateData, connected: false}))
+            } else {
+                setStateData((prevStateData) => ({...prevStateData, connected: true}))
+                return gameResponse
+            }
+        } catch (err) {
+            setStateData((prevStateData) => ({...prevStateData, connected: false}))
+        }
     }
 
     async function findGame() {
-        const res = await fetch(`${API}/find_game`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" }
-        })
-        const gameResponse = await res.json()
-        return gameResponse
+        try {
+            const res = await fetch(`${API}/find_game`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" }
+            })
+            const gameResponse = await res.json()
+            if (!res.ok) {
+                setStateData((prevStateData) => ({...prevStateData, connected: false}))
+            } else {
+                setStateData((prevStateData) => ({...prevStateData, connected: true}))
+                return gameResponse
+            }
+        } catch (err) {
+            setStateData((prevStateData) => ({...prevStateData, connected: false}))
+        }
     }
 
-    async function endGame() {
-        if (!gameData.GAME_ID) return 
-        const res = await fetch(`${API}/end_game${gameData.GAME_ID}`, {
+    async function leaveGame() {
+        if (!(gameData.GAME_ID && gameData.USER_ID)) return 
+        const res = await fetch(`${API}/leave_game/${gameData.GAME_ID}/${gameData.USER_ID}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" }
         })
         const response = await res.json()
+        console.log("Leave Game Response")
         console.log(response)
     }
 
@@ -60,14 +81,14 @@ export default function RattleGame(props) {
                 headers: { "Content-Type": "application/json" }
             })
             if (!res.ok) {
-                setConnected(false)
+                setStateData((prevStateData) => ({...prevStateData, connected: false}))
             } else {
-                setConnected(true)
+                setStateData((prevStateData) => ({...prevStateData, connected: true}))
             }
             const gameState = await res.json()
             return gameState
         } catch (err) {
-            setConnected(false)
+            setStateData((prevStateData) => ({...prevStateData, connected: false}))
         }
     }
 
@@ -98,10 +119,10 @@ export default function RattleGame(props) {
                 if (gameState) {
                     Game.updateFromServer(gameState)
                     if (!(gameState["game"]["winner"] === null)) {
-                        setGameOver(true)
+                        setStateData((prevStateData) => ({...prevStateData, gameOver: true}))
                     }
                     if (gameState["full"] == true) {
-                        setSearching(false)
+                        setStateData((prevStateData) => ({...prevStateData, searching: false}))
                     }
                 }
                 
@@ -118,7 +139,7 @@ export default function RattleGame(props) {
         gameData.init_state = await getState(gameData.GAME_ID, gameData.USER_ID) 
         console.log(gameData.PLAYERS)
 
-        if (props.type != "local" && !GAME_RESPONSE.full) setSearching(true)
+        if (props.type != "local" && !GAME_RESPONSE.full) setStateData((prevStateData) => ({...prevStateData, searching: true}))
         Game.initGame(API, gameData.GAME_ID, gameData.PLAYERS, gameData.init_state["game"]["game_state"], gameData.FULL)
         User.makeMove = makeMove
         startPolling()
@@ -127,8 +148,7 @@ export default function RattleGame(props) {
 
     useEffect(() => {
         if (p5InstanceRef.current) return
-        setGameOver(false)
-        setSearching(false)
+        setStateData({connected:true, gameOver: false, searching: false})
         initGame()
         p5InstanceRef.current = new p5((s) => rattleSketch(s, containerRef.current, gameData))
 
@@ -139,30 +159,30 @@ export default function RattleGame(props) {
                 clearInterval(gameData.pollServer)
                 gameData.pollServer = null
             }
-            endGame(gameData.GAME_ID)
+            leaveGame()
         }
 
     }, [props.type, props.restartGame])
 
-    const name = connected && !gameOver && !searching ? "rattle-sketch" : "rattle-sketch overlay"
+    const name = stateData.connected && !stateData.gameOver && !stateData.searching ? "rattle-sketch" : "rattle-sketch overlay"
 
     return (
         <div className={name} ref={containerRef}>
-            {!connected && 
+            {!stateData.connected && 
                 <GameOverlay
                     title="Lost Connection..."
                     buttonText="Restart"
                     buttonFn={() => props.setRestartGame((prevRestartGame) => !prevRestartGame)}
                 />
             }
-            {connected && gameOver && 
+            {stateData.connected && stateData.gameOver && 
                 <GameOverlay
                     title={`${Game.winner == 0 ? "Light" : "Dark"} Wins by ${Game.winType}`}
                     buttonText="New Game"
                     buttonFn={() => props.setRestartGame((prevRestartGame) => !prevRestartGame)}
                 />
             }
-            {connected && searching &&
+            {stateData.connected && stateData.searching &&
                 <GameOverlay
                     title="Looking for Opponent..."
                     buttonText=""

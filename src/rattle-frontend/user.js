@@ -15,6 +15,11 @@ export default class User {
                 }
             }
         }
+        s.keyPressed = () => {
+            if (s.keyCode === 37) {
+                User.backArrowAction()
+            }
+        }
     }
 
     static leftClickAction(mouse) {
@@ -38,8 +43,10 @@ export default class User {
             if (data) User.storeInput = [selectedCell, data[0]]
             
         }
+    }
 
-
+    static backArrowAction() {  
+        User.makeMove("<")
     }
 
     static placement_code(pos) {

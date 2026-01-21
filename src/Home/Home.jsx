@@ -14,13 +14,24 @@ export default function Home(props) {
                 <div className="game-content">
                     <RattleGame type={props.gameType} restartGame={restartGame} setRestartGame={setRestartGame}/>
                     <div className="game-content-info">
-                        <Section 
-                            title="Welcome to Rattle!" 
-                            sub="A board game by Eric Johnson"
-                            desc={<p>Rattle is a two player chance/strategy board game about claiming territory. Each player starts with six dice-pieces that can be combined to build chain like structures. These structures, called snakes, can independently replicate, move, and consume other snakes. Players build snakes on their own side of the board and eventually move them to claim the opponent's Castle on the opposite end of the board.</p>}
-                            link="read more"
-                            setOpenPage={props.setOpenPage}
-                        />
+                        {props.gameType === "local" ? 
+                            <Section 
+                                title="Welcome to Rattle!" 
+                                sub="A board game by Eric Johnson"
+                                desc={<p>Rattle is a two player chance/strategy board game about claiming territory. Each player starts with six dice-pieces that can be combined to build chain like structures. These structures, called snakes, can independently replicate, move, and consume other snakes. Players build snakes on their own side of the board and eventually move them to claim the opponent's Castle on the opposite end of the board.</p>}
+                                link="read more"
+                                setOpenPage={props.setOpenPage}
+                            />
+                            :
+                            <Section 
+                                title="Playing Online" 
+                                sub="Getting started"
+                                desc={<p>The game will begin as soon as another player is found in que. The first player to capture the opponent's home square wins. Good luck!</p>}
+                                link="read more"
+                                setOpenPage={props.setOpenPage}
+                            />
+                        }
+                        
                         <Section 
                             title="Game Controls" 
                             sub="Roll, place, and move die"
