@@ -10,7 +10,7 @@ export default function RattleGame(props) {
 
     const containerRef = useRef(null)
     const p5InstanceRef = useRef(null)
-    const API = "http://127.0.0.1:8000" //"https://rattle-api-13w1.onrender.com" http://127.0.0.1:8000
+    const API = "https://rattle-api-13w1.onrender.com"
     const [stateData, setStateData] = useState({
         connected: true,
         gameOver: false,
