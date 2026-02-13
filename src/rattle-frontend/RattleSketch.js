@@ -19,7 +19,7 @@ export default function RattleSketch(s, parentContainer, gameData) {
     }
     
     s.draw = () => {
-        if (gameData.loaded) {
+        if (Game.loaded) {
             User.registerEvents(s)
             Render.renderGame(s)
         }

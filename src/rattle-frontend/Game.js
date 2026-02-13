@@ -8,6 +8,7 @@ export default class Game {
     static API = null 
     static gameId = null
     static full = false
+    static loaded = false
 
     static gameState = null  
     static players = []
@@ -21,6 +22,7 @@ export default class Game {
         Game.full = full_
         Game.players = players_
         Game.gameState = gameState_
+        Game.loaded = true
     }
 
     static updateFromServer(res) {

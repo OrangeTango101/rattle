@@ -1,4 +1,5 @@
 import rattle_title from "/Users/ericjohnson/rattle-site/src/assets/rattle-title.png"
+import Game from "../../rattle-frontend/Game"
 
 export default function Nav(props) {
     const [setOpenPage, setGameType] = [props.setOpenPage, props.setGameType]
@@ -14,6 +15,8 @@ export default function Nav(props) {
     }
 
     function updateGame() {
+        if (!Game.loaded) return
+
         setGameType((prevGameType) => {
             if (prevGameType === "local") {
                 return "online"

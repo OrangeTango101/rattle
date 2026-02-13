@@ -14,7 +14,8 @@ export default function RattleGame(props) {
     const [stateData, setStateData] = useState({
         connected: true,
         gameOver: false,
-        searching: false
+        searching: false,
+        loaded: false
     })
     const gameData = {
         GAME_ID: null,
@@ -22,8 +23,7 @@ export default function RattleGame(props) {
         PLAYERS: null,
         pollServer: null,
         init_state: null,
-        FULL: false,
-        loaded: false
+        FULL: false
     }
 
     async function createGame(type) {
@@ -141,14 +141,14 @@ export default function RattleGame(props) {
 
         if (props.type != "local" && !GAME_RESPONSE.full) setStateData((prevStateData) => ({...prevStateData, searching: true}))
         Game.initGame(API, gameData.GAME_ID, gameData.PLAYERS, gameData.init_state["game"]["game_state"], gameData.FULL)
+        setStateData((prevStateData) => ({...prevStateData, loaded: true}))
         User.makeMove = makeMove
         startPolling()
-        gameData.loaded = true
     }
 
     useEffect(() => {
         if (p5InstanceRef.current) return
-        setStateData({connected:true, gameOver: false, searching: false})
+        setStateData({connected:true, gameOver: false, searching: false, loaded:false})
         initGame()
         p5InstanceRef.current = new p5((s) => rattleSketch(s, containerRef.current, gameData))
 
@@ -159,12 +159,13 @@ export default function RattleGame(props) {
                 clearInterval(gameData.pollServer)
                 gameData.pollServer = null
             }
+            Game.loaded = false
             leaveGame()
         }
 
     }, [props.type, props.restartGame])
 
-    const name = stateData.connected && !stateData.gameOver && !stateData.searching ? "rattle-sketch" : "rattle-sketch overlay"
+    const name = stateData.connected && stateData.loaded && !stateData.gameOver && !stateData.searching ? "rattle-sketch" : "rattle-sketch overlay"
 
     return (
         <div className={name} ref={containerRef}>
@@ -173,6 +174,13 @@ export default function RattleGame(props) {
                     title="Lost Connection..."
                     buttonText="Restart"
                     buttonFn={() => props.setRestartGame((prevRestartGame) => !prevRestartGame)}
+                />
+            }
+            {stateData.connected && !stateData.loaded && 
+                <GameOverlay
+                    title="Connecting to Server..."
+                    buttonText=""
+                    buttonFn=""
                 />
             }
             {stateData.connected && stateData.gameOver && 
